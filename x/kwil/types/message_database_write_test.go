@@ -3,9 +3,10 @@ package types
 import (
 	"testing"
 
+	"kwil/testutil/sample"
+
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
-	"kwil/testutil/sample"
 )
 
 func TestMsgDatabaseWrite_ValidateBasic(t *testing.T) {
