@@ -18,5 +18,9 @@ func (k msgServer) DDL(goCtx context.Context, msg *types.MsgDDL) (*types.MsgDDLR
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Specified DBid does not exist")
 	}
 
+	if !k.IsDbOwner(ctx, msg.Dbid, msg.Creator) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Caller is not the owner of this DB")
+	}
+
 	return &types.MsgDDLResponse{}, nil
 }
