@@ -39,5 +39,16 @@ func (k msgServer) CreateDatabase(goCtx context.Context, msg *types.MsgCreateDat
 	// Store the DB
 	k.SetDatabases(ctx, newDB)
 
+	// Create new DDL
+	newDDL := types.Ddl{
+		Index:     dbName + "0",
+		Statement: "CREATE DATABASE " + dbName,
+		Position:  0,
+		Final:     true,
+	}
+
+	//Set DDL in the database
+	k.SetDdl(ctx, newDDL)
+
 	return &types.MsgCreateDatabaseResponse{Id: dbName}, nil
 }

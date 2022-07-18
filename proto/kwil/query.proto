@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "kwil/params.proto";
 import "kwil/databases.proto";
+import "kwil/ddl.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "kwil/x/kwil/types";
@@ -24,6 +25,16 @@ service Query {
 	// Queries a list of Databases items.
 	rpc DatabasesAll(QueryAllDatabasesRequest) returns (QueryAllDatabasesResponse) {
 		option (google.api.http).get = "/kwil/kwil/databases";
+	}
+
+// Queries a Ddl by index.
+	rpc Ddl(QueryGetDdlRequest) returns (QueryGetDdlResponse) {
+		option (google.api.http).get = "/kwil/kwil/ddl/{index}";
+	}
+
+	// Queries a list of Ddl items.
+	rpc DdlAll(QueryAllDdlRequest) returns (QueryAllDdlResponse) {
+		option (google.api.http).get = "/kwil/kwil/ddl";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -53,6 +64,24 @@ message QueryAllDatabasesRequest {
 
 message QueryAllDatabasesResponse {
 	repeated Databases databases = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetDdlRequest {
+	  string index = 1;
+
+}
+
+message QueryGetDdlResponse {
+	Ddl ddl = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDdlRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDdlResponse {
+	repeated Ddl ddl = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

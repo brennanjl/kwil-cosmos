@@ -6,6 +6,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
+import { Ddl } from "../kwil/ddl";
 
 export const protobufPackage = "kwil.kwil";
 
@@ -32,6 +33,23 @@ export interface QueryAllDatabasesRequest {
 
 export interface QueryAllDatabasesResponse {
   databases: Databases[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetDdlRequest {
+  index: string;
+}
+
+export interface QueryGetDdlResponse {
+  ddl: Ddl | undefined;
+}
+
+export interface QueryAllDdlRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllDdlResponse {
+  ddl: Ddl[];
   pagination: PageResponse | undefined;
 }
 
@@ -446,6 +464,272 @@ export const QueryAllDatabasesResponse = {
   },
 };
 
+const baseQueryGetDdlRequest: object = { index: "" };
+
+export const QueryGetDdlRequest = {
+  encode(
+    message: QueryGetDdlRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetDdlRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetDdlRequest } as QueryGetDdlRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDdlRequest {
+    const message = { ...baseQueryGetDdlRequest } as QueryGetDdlRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDdlRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryGetDdlRequest>): QueryGetDdlRequest {
+    const message = { ...baseQueryGetDdlRequest } as QueryGetDdlRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetDdlResponse: object = {};
+
+export const QueryGetDdlResponse = {
+  encode(
+    message: QueryGetDdlResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.ddl !== undefined) {
+      Ddl.encode(message.ddl, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetDdlResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetDdlResponse } as QueryGetDdlResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ddl = Ddl.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDdlResponse {
+    const message = { ...baseQueryGetDdlResponse } as QueryGetDdlResponse;
+    if (object.ddl !== undefined && object.ddl !== null) {
+      message.ddl = Ddl.fromJSON(object.ddl);
+    } else {
+      message.ddl = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDdlResponse): unknown {
+    const obj: any = {};
+    message.ddl !== undefined &&
+      (obj.ddl = message.ddl ? Ddl.toJSON(message.ddl) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryGetDdlResponse>): QueryGetDdlResponse {
+    const message = { ...baseQueryGetDdlResponse } as QueryGetDdlResponse;
+    if (object.ddl !== undefined && object.ddl !== null) {
+      message.ddl = Ddl.fromPartial(object.ddl);
+    } else {
+      message.ddl = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDdlRequest: object = {};
+
+export const QueryAllDdlRequest = {
+  encode(
+    message: QueryAllDdlRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllDdlRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllDdlRequest } as QueryAllDdlRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDdlRequest {
+    const message = { ...baseQueryAllDdlRequest } as QueryAllDdlRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDdlRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryAllDdlRequest>): QueryAllDdlRequest {
+    const message = { ...baseQueryAllDdlRequest } as QueryAllDdlRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDdlResponse: object = {};
+
+export const QueryAllDdlResponse = {
+  encode(
+    message: QueryAllDdlResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.ddl) {
+      Ddl.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllDdlResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllDdlResponse } as QueryAllDdlResponse;
+    message.ddl = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ddl.push(Ddl.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDdlResponse {
+    const message = { ...baseQueryAllDdlResponse } as QueryAllDdlResponse;
+    message.ddl = [];
+    if (object.ddl !== undefined && object.ddl !== null) {
+      for (const e of object.ddl) {
+        message.ddl.push(Ddl.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDdlResponse): unknown {
+    const obj: any = {};
+    if (message.ddl) {
+      obj.ddl = message.ddl.map((e) => (e ? Ddl.toJSON(e) : undefined));
+    } else {
+      obj.ddl = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryAllDdlResponse>): QueryAllDdlResponse {
+    const message = { ...baseQueryAllDdlResponse } as QueryAllDdlResponse;
+    message.ddl = [];
+    if (object.ddl !== undefined && object.ddl !== null) {
+      for (const e of object.ddl) {
+        message.ddl.push(Ddl.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -458,6 +742,10 @@ export interface Query {
   DatabasesAll(
     request: QueryAllDatabasesRequest
   ): Promise<QueryAllDatabasesResponse>;
+  /** Queries a Ddl by index. */
+  Ddl(request: QueryGetDdlRequest): Promise<QueryGetDdlResponse>;
+  /** Queries a list of Ddl items. */
+  DdlAll(request: QueryAllDdlRequest): Promise<QueryAllDdlResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -489,6 +777,18 @@ export class QueryClientImpl implements Query {
     return promise.then((data) =>
       QueryAllDatabasesResponse.decode(new Reader(data))
     );
+  }
+
+  Ddl(request: QueryGetDdlRequest): Promise<QueryGetDdlResponse> {
+    const data = QueryGetDdlRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "Ddl", data);
+    return promise.then((data) => QueryGetDdlResponse.decode(new Reader(data)));
+  }
+
+  DdlAll(request: QueryAllDdlRequest): Promise<QueryAllDdlResponse> {
+    const data = QueryAllDdlRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "DdlAll", data);
+    return promise.then((data) => QueryAllDdlResponse.decode(new Reader(data)));
   }
 }
 

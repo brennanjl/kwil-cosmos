@@ -1,0 +1,13 @@
+syntax = "proto3";
+package kwil.kwil;
+
+option go_package = "kwil/x/kwil/types";
+
+message Ddl {
+  string index = 1; 
+  string statement = 2; 
+  int32 position = 3; 
+  bool final = 4; 
+  
+}
+

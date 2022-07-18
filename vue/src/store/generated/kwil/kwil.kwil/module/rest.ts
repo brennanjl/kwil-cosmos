@@ -15,6 +15,15 @@ export interface KwilDatabases {
   owner?: string;
 }
 
+export interface KwilDdl {
+  index?: string;
+  statement?: string;
+
+  /** @format int32 */
+  position?: number;
+  final?: boolean;
+}
+
 export interface KwilMsgCreateDatabaseResponse {
   id?: string;
 }
@@ -45,8 +54,27 @@ export interface KwilQueryAllDatabasesResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface KwilQueryAllDdlResponse {
+  ddl?: KwilDdl[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface KwilQueryGetDatabasesResponse {
   databases?: KwilDatabases;
+}
+
+export interface KwilQueryGetDdlResponse {
+  ddl?: KwilDdl;
 }
 
 /**
@@ -364,6 +392,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryDatabases = (index: string, params: RequestParams = {}) =>
     this.request<KwilQueryGetDatabasesResponse, RpcStatus>({
       path: `/kwil/kwil/databases/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDdlAll
+   * @summary Queries a list of Ddl items.
+   * @request GET:/kwil/kwil/ddl
+   */
+  queryDdlAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<KwilQueryAllDdlResponse, RpcStatus>({
+      path: `/kwil/kwil/ddl`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDdl
+   * @summary Queries a Ddl by index.
+   * @request GET:/kwil/kwil/ddl/{index}
+   */
+  queryDdl = (index: string, params: RequestParams = {}) =>
+    this.request<KwilQueryGetDdlResponse, RpcStatus>({
+      path: `/kwil/kwil/ddl/${index}`,
       method: "GET",
       format: "json",
       ...params,
