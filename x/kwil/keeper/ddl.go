@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"kwil/x/kwil/types"
+	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -12,15 +13,9 @@ func (k Keeper) SetDdl(ctx sdk.Context, ddl types.Ddl) {
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DdlKeyPrefix))
 
-	// We need to check to ensure that this is one position past the current index.
-	// If it is the first, then this check does not need to take place
-	if ddl.Position > 0 {
-		k.GetDdl
-	}
-
 	b := k.cdc.MustMarshal(&ddl)
 	store.Set(types.DdlKey(
-		ddl.Index,
+		ddl.Index+strconv.Itoa(int(ddl.Position)),
 	), b)
 }
 

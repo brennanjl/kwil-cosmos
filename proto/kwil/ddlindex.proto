@@ -3,10 +3,10 @@ package kwil.kwil;
 
 option go_package = "kwil/x/kwil/types";
 
-message Ddl {
+message Ddlindex {
   string index = 1; 
-  string statement = 2; 
+  string name = 2; 
   int64 position = 3; 
-  bool final = 4; 
   
 }
+

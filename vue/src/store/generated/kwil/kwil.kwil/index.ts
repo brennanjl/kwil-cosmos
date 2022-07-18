@@ -2,10 +2,11 @@ import { txClient, queryClient, MissingWalletError , registry} from './module'
 
 import { Databases } from "./module/types/kwil/databases"
 import { Ddl } from "./module/types/kwil/ddl"
+import { Ddlindex } from "./module/types/kwil/ddlindex"
 import { Params } from "./module/types/kwil/params"
 
 
-export { Databases, Ddl, Params };
+export { Databases, Ddl, Ddlindex, Params };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -48,10 +49,13 @@ const getDefaultState = () => {
 				DatabasesAll: {},
 				Ddl: {},
 				DdlAll: {},
+				Ddlindex: {},
+				DdlindexAll: {},
 				
 				_Structure: {
 						Databases: getStructure(Databases.fromPartial({})),
 						Ddl: getStructure(Ddl.fromPartial({})),
+						Ddlindex: getStructure(Ddlindex.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
 						
 		},
@@ -110,6 +114,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.DdlAll[JSON.stringify(params)] ?? {}
+		},
+				getDdlindex: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Ddlindex[JSON.stringify(params)] ?? {}
+		},
+				getDdlindexAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.DdlindexAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -258,6 +274,54 @@ export default {
 				return getters['getDdlAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new Error('QueryClient:QueryDdlAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryDdlindex({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryDdlindex( key.index)).data
+				
+					
+				commit('QUERY', { query: 'Ddlindex', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryDdlindex', payload: { options: { all }, params: {...key},query }})
+				return getters['getDdlindex']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryDdlindex API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryDdlindexAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryDdlindexAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryDdlindexAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'DdlindexAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryDdlindexAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getDdlindexAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryDdlindexAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

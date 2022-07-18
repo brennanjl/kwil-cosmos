@@ -4,36 +4,32 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "kwil.kwil";
 
-export interface Ddl {
+export interface Ddlindex {
   index: string;
-  statement: string;
+  name: string;
   position: number;
-  final: boolean;
 }
 
-const baseDdl: object = { index: "", statement: "", position: 0, final: false };
+const baseDdlindex: object = { index: "", name: "", position: 0 };
 
-export const Ddl = {
-  encode(message: Ddl, writer: Writer = Writer.create()): Writer {
+export const Ddlindex = {
+  encode(message: Ddlindex, writer: Writer = Writer.create()): Writer {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
-    if (message.statement !== "") {
-      writer.uint32(18).string(message.statement);
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
     }
     if (message.position !== 0) {
       writer.uint32(24).int64(message.position);
     }
-    if (message.final === true) {
-      writer.uint32(32).bool(message.final);
-    }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Ddl {
+  decode(input: Reader | Uint8Array, length?: number): Ddlindex {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseDdl } as Ddl;
+    const message = { ...baseDdlindex } as Ddlindex;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -41,13 +37,10 @@ export const Ddl = {
           message.index = reader.string();
           break;
         case 2:
-          message.statement = reader.string();
+          message.name = reader.string();
           break;
         case 3:
           message.position = longToNumber(reader.int64() as Long);
-          break;
-        case 4:
-          message.final = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
@@ -57,61 +50,50 @@ export const Ddl = {
     return message;
   },
 
-  fromJSON(object: any): Ddl {
-    const message = { ...baseDdl } as Ddl;
+  fromJSON(object: any): Ddlindex {
+    const message = { ...baseDdlindex } as Ddlindex;
     if (object.index !== undefined && object.index !== null) {
       message.index = String(object.index);
     } else {
       message.index = "";
     }
-    if (object.statement !== undefined && object.statement !== null) {
-      message.statement = String(object.statement);
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
     } else {
-      message.statement = "";
+      message.name = "";
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = Number(object.position);
     } else {
       message.position = 0;
     }
-    if (object.final !== undefined && object.final !== null) {
-      message.final = Boolean(object.final);
-    } else {
-      message.final = false;
-    }
     return message;
   },
 
-  toJSON(message: Ddl): unknown {
+  toJSON(message: Ddlindex): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
-    message.statement !== undefined && (obj.statement = message.statement);
+    message.name !== undefined && (obj.name = message.name);
     message.position !== undefined && (obj.position = message.position);
-    message.final !== undefined && (obj.final = message.final);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Ddl>): Ddl {
-    const message = { ...baseDdl } as Ddl;
+  fromPartial(object: DeepPartial<Ddlindex>): Ddlindex {
+    const message = { ...baseDdlindex } as Ddlindex;
     if (object.index !== undefined && object.index !== null) {
       message.index = object.index;
     } else {
       message.index = "";
     }
-    if (object.statement !== undefined && object.statement !== null) {
-      message.statement = object.statement;
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
     } else {
-      message.statement = "";
+      message.name = "";
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = object.position;
     } else {
       message.position = 0;
-    }
-    if (object.final !== undefined && object.final !== null) {
-      message.final = object.final;
-    } else {
-      message.final = false;
     }
     return message;
   },

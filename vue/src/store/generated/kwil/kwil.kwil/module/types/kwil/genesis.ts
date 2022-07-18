@@ -2,6 +2,7 @@
 import { Params } from "../kwil/params";
 import { Databases } from "../kwil/databases";
 import { Ddl } from "../kwil/ddl";
+import { Ddlindex } from "../kwil/ddlindex";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "kwil.kwil";
@@ -10,8 +11,9 @@ export const protobufPackage = "kwil.kwil";
 export interface GenesisState {
   params: Params | undefined;
   databasesList: Databases[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   ddlList: Ddl[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  ddlindexList: Ddlindex[];
 }
 
 const baseGenesisState: object = {};
@@ -27,6 +29,9 @@ export const GenesisState = {
     for (const v of message.ddlList) {
       Ddl.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+    for (const v of message.ddlindexList) {
+      Ddlindex.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -36,6 +41,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.databasesList = [];
     message.ddlList = [];
+    message.ddlindexList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -47,6 +53,9 @@ export const GenesisState = {
           break;
         case 3:
           message.ddlList.push(Ddl.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.ddlindexList.push(Ddlindex.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -60,6 +69,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.databasesList = [];
     message.ddlList = [];
+    message.ddlindexList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -73,6 +83,11 @@ export const GenesisState = {
     if (object.ddlList !== undefined && object.ddlList !== null) {
       for (const e of object.ddlList) {
         message.ddlList.push(Ddl.fromJSON(e));
+      }
+    }
+    if (object.ddlindexList !== undefined && object.ddlindexList !== null) {
+      for (const e of object.ddlindexList) {
+        message.ddlindexList.push(Ddlindex.fromJSON(e));
       }
     }
     return message;
@@ -94,6 +109,13 @@ export const GenesisState = {
     } else {
       obj.ddlList = [];
     }
+    if (message.ddlindexList) {
+      obj.ddlindexList = message.ddlindexList.map((e) =>
+        e ? Ddlindex.toJSON(e) : undefined
+      );
+    } else {
+      obj.ddlindexList = [];
+    }
     return obj;
   },
 
@@ -101,6 +123,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.databasesList = [];
     message.ddlList = [];
+    message.ddlindexList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -114,6 +137,11 @@ export const GenesisState = {
     if (object.ddlList !== undefined && object.ddlList !== null) {
       for (const e of object.ddlList) {
         message.ddlList.push(Ddl.fromPartial(e));
+      }
+    }
+    if (object.ddlindexList !== undefined && object.ddlindexList !== null) {
+      for (const e of object.ddlindexList) {
+        message.ddlindexList.push(Ddlindex.fromPartial(e));
       }
     }
     return message;

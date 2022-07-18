@@ -19,9 +19,17 @@ export interface KwilDdl {
   index?: string;
   statement?: string;
 
-  /** @format int32 */
-  position?: number;
+  /** @format int64 */
+  position?: string;
   final?: boolean;
+}
+
+export interface KwilDdlindex {
+  index?: string;
+  name?: string;
+
+  /** @format int64 */
+  position?: string;
 }
 
 export interface KwilMsgCreateDatabaseResponse {
@@ -69,12 +77,31 @@ export interface KwilQueryAllDdlResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface KwilQueryAllDdlindexResponse {
+  ddlindex?: KwilDdlindex[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface KwilQueryGetDatabasesResponse {
   databases?: KwilDatabases;
 }
 
 export interface KwilQueryGetDdlResponse {
   ddl?: KwilDdl;
+}
+
+export interface KwilQueryGetDdlindexResponse {
+  ddlindex?: KwilDdlindex;
 }
 
 /**
@@ -434,6 +461,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryDdl = (index: string, params: RequestParams = {}) =>
     this.request<KwilQueryGetDdlResponse, RpcStatus>({
       path: `/kwil/kwil/ddl/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDdlindexAll
+   * @summary Queries a list of Ddlindex items.
+   * @request GET:/kwil/kwil/ddlindex
+   */
+  queryDdlindexAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<KwilQueryAllDdlindexResponse, RpcStatus>({
+      path: `/kwil/kwil/ddlindex`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDdlindex
+   * @summary Queries a Ddlindex by index.
+   * @request GET:/kwil/kwil/ddlindex/{index}
+   */
+  queryDdlindex = (index: string, params: RequestParams = {}) =>
+    this.request<KwilQueryGetDdlindexResponse, RpcStatus>({
+      path: `/kwil/kwil/ddlindex/${index}`,
       method: "GET",
       format: "json",
       ...params,

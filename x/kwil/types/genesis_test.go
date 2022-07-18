@@ -38,6 +38,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				DdlindexList: []types.Ddlindex{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -60,6 +68,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated ddl",
 			genState: &types.GenesisState{
 				DdlList: []types.Ddl{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated ddlindex",
+			genState: &types.GenesisState{
+				DdlindexList: []types.Ddlindex{
 					{
 						Index: "0",
 					},

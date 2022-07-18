@@ -7,6 +7,7 @@ import {
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Ddl } from "../kwil/ddl";
+import { Ddlindex } from "../kwil/ddlindex";
 
 export const protobufPackage = "kwil.kwil";
 
@@ -50,6 +51,23 @@ export interface QueryAllDdlRequest {
 
 export interface QueryAllDdlResponse {
   ddl: Ddl[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetDdlindexRequest {
+  index: string;
+}
+
+export interface QueryGetDdlindexResponse {
+  ddlindex: Ddlindex | undefined;
+}
+
+export interface QueryAllDdlindexRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllDdlindexResponse {
+  ddlindex: Ddlindex[];
   pagination: PageResponse | undefined;
 }
 
@@ -730,6 +748,314 @@ export const QueryAllDdlResponse = {
   },
 };
 
+const baseQueryGetDdlindexRequest: object = { index: "" };
+
+export const QueryGetDdlindexRequest = {
+  encode(
+    message: QueryGetDdlindexRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetDdlindexRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDdlindexRequest,
+    } as QueryGetDdlindexRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDdlindexRequest {
+    const message = {
+      ...baseQueryGetDdlindexRequest,
+    } as QueryGetDdlindexRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDdlindexRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDdlindexRequest>
+  ): QueryGetDdlindexRequest {
+    const message = {
+      ...baseQueryGetDdlindexRequest,
+    } as QueryGetDdlindexRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetDdlindexResponse: object = {};
+
+export const QueryGetDdlindexResponse = {
+  encode(
+    message: QueryGetDdlindexResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.ddlindex !== undefined) {
+      Ddlindex.encode(message.ddlindex, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetDdlindexResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDdlindexResponse,
+    } as QueryGetDdlindexResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ddlindex = Ddlindex.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDdlindexResponse {
+    const message = {
+      ...baseQueryGetDdlindexResponse,
+    } as QueryGetDdlindexResponse;
+    if (object.ddlindex !== undefined && object.ddlindex !== null) {
+      message.ddlindex = Ddlindex.fromJSON(object.ddlindex);
+    } else {
+      message.ddlindex = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDdlindexResponse): unknown {
+    const obj: any = {};
+    message.ddlindex !== undefined &&
+      (obj.ddlindex = message.ddlindex
+        ? Ddlindex.toJSON(message.ddlindex)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDdlindexResponse>
+  ): QueryGetDdlindexResponse {
+    const message = {
+      ...baseQueryGetDdlindexResponse,
+    } as QueryGetDdlindexResponse;
+    if (object.ddlindex !== undefined && object.ddlindex !== null) {
+      message.ddlindex = Ddlindex.fromPartial(object.ddlindex);
+    } else {
+      message.ddlindex = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDdlindexRequest: object = {};
+
+export const QueryAllDdlindexRequest = {
+  encode(
+    message: QueryAllDdlindexRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllDdlindexRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDdlindexRequest,
+    } as QueryAllDdlindexRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDdlindexRequest {
+    const message = {
+      ...baseQueryAllDdlindexRequest,
+    } as QueryAllDdlindexRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDdlindexRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDdlindexRequest>
+  ): QueryAllDdlindexRequest {
+    const message = {
+      ...baseQueryAllDdlindexRequest,
+    } as QueryAllDdlindexRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDdlindexResponse: object = {};
+
+export const QueryAllDdlindexResponse = {
+  encode(
+    message: QueryAllDdlindexResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.ddlindex) {
+      Ddlindex.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllDdlindexResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDdlindexResponse,
+    } as QueryAllDdlindexResponse;
+    message.ddlindex = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ddlindex.push(Ddlindex.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDdlindexResponse {
+    const message = {
+      ...baseQueryAllDdlindexResponse,
+    } as QueryAllDdlindexResponse;
+    message.ddlindex = [];
+    if (object.ddlindex !== undefined && object.ddlindex !== null) {
+      for (const e of object.ddlindex) {
+        message.ddlindex.push(Ddlindex.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDdlindexResponse): unknown {
+    const obj: any = {};
+    if (message.ddlindex) {
+      obj.ddlindex = message.ddlindex.map((e) =>
+        e ? Ddlindex.toJSON(e) : undefined
+      );
+    } else {
+      obj.ddlindex = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDdlindexResponse>
+  ): QueryAllDdlindexResponse {
+    const message = {
+      ...baseQueryAllDdlindexResponse,
+    } as QueryAllDdlindexResponse;
+    message.ddlindex = [];
+    if (object.ddlindex !== undefined && object.ddlindex !== null) {
+      for (const e of object.ddlindex) {
+        message.ddlindex.push(Ddlindex.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -746,6 +1072,12 @@ export interface Query {
   Ddl(request: QueryGetDdlRequest): Promise<QueryGetDdlResponse>;
   /** Queries a list of Ddl items. */
   DdlAll(request: QueryAllDdlRequest): Promise<QueryAllDdlResponse>;
+  /** Queries a Ddlindex by index. */
+  Ddlindex(request: QueryGetDdlindexRequest): Promise<QueryGetDdlindexResponse>;
+  /** Queries a list of Ddlindex items. */
+  DdlindexAll(
+    request: QueryAllDdlindexRequest
+  ): Promise<QueryAllDdlindexResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -789,6 +1121,26 @@ export class QueryClientImpl implements Query {
     const data = QueryAllDdlRequest.encode(request).finish();
     const promise = this.rpc.request("kwil.kwil.Query", "DdlAll", data);
     return promise.then((data) => QueryAllDdlResponse.decode(new Reader(data)));
+  }
+
+  Ddlindex(
+    request: QueryGetDdlindexRequest
+  ): Promise<QueryGetDdlindexResponse> {
+    const data = QueryGetDdlindexRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "Ddlindex", data);
+    return promise.then((data) =>
+      QueryGetDdlindexResponse.decode(new Reader(data))
+    );
+  }
+
+  DdlindexAll(
+    request: QueryAllDdlindexRequest
+  ): Promise<QueryAllDdlindexResponse> {
+    const data = QueryAllDdlindexRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "DdlindexAll", data);
+    return promise.then((data) =>
+      QueryAllDdlindexResponse.decode(new Reader(data))
+    );
   }
 }
 

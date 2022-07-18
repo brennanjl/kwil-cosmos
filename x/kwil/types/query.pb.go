@@ -481,6 +481,190 @@ func (m *QueryAllDdlResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetDdlindexRequest struct {
+	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+}
+
+func (m *QueryGetDdlindexRequest) Reset()         { *m = QueryGetDdlindexRequest{} }
+func (m *QueryGetDdlindexRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDdlindexRequest) ProtoMessage()    {}
+func (*QueryGetDdlindexRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_09e2fb7d218f1a73, []int{10}
+}
+func (m *QueryGetDdlindexRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDdlindexRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDdlindexRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDdlindexRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDdlindexRequest.Merge(m, src)
+}
+func (m *QueryGetDdlindexRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDdlindexRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDdlindexRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDdlindexRequest proto.InternalMessageInfo
+
+func (m *QueryGetDdlindexRequest) GetIndex() string {
+	if m != nil {
+		return m.Index
+	}
+	return ""
+}
+
+type QueryGetDdlindexResponse struct {
+	Ddlindex Ddlindex `protobuf:"bytes,1,opt,name=ddlindex,proto3" json:"ddlindex"`
+}
+
+func (m *QueryGetDdlindexResponse) Reset()         { *m = QueryGetDdlindexResponse{} }
+func (m *QueryGetDdlindexResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDdlindexResponse) ProtoMessage()    {}
+func (*QueryGetDdlindexResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_09e2fb7d218f1a73, []int{11}
+}
+func (m *QueryGetDdlindexResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDdlindexResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDdlindexResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDdlindexResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDdlindexResponse.Merge(m, src)
+}
+func (m *QueryGetDdlindexResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDdlindexResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDdlindexResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDdlindexResponse proto.InternalMessageInfo
+
+func (m *QueryGetDdlindexResponse) GetDdlindex() Ddlindex {
+	if m != nil {
+		return m.Ddlindex
+	}
+	return Ddlindex{}
+}
+
+type QueryAllDdlindexRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDdlindexRequest) Reset()         { *m = QueryAllDdlindexRequest{} }
+func (m *QueryAllDdlindexRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDdlindexRequest) ProtoMessage()    {}
+func (*QueryAllDdlindexRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_09e2fb7d218f1a73, []int{12}
+}
+func (m *QueryAllDdlindexRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDdlindexRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDdlindexRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDdlindexRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDdlindexRequest.Merge(m, src)
+}
+func (m *QueryAllDdlindexRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDdlindexRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDdlindexRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDdlindexRequest proto.InternalMessageInfo
+
+func (m *QueryAllDdlindexRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllDdlindexResponse struct {
+	Ddlindex   []Ddlindex          `protobuf:"bytes,1,rep,name=ddlindex,proto3" json:"ddlindex"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDdlindexResponse) Reset()         { *m = QueryAllDdlindexResponse{} }
+func (m *QueryAllDdlindexResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDdlindexResponse) ProtoMessage()    {}
+func (*QueryAllDdlindexResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_09e2fb7d218f1a73, []int{13}
+}
+func (m *QueryAllDdlindexResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDdlindexResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDdlindexResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDdlindexResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDdlindexResponse.Merge(m, src)
+}
+func (m *QueryAllDdlindexResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDdlindexResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDdlindexResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDdlindexResponse proto.InternalMessageInfo
+
+func (m *QueryAllDdlindexResponse) GetDdlindex() []Ddlindex {
+	if m != nil {
+		return m.Ddlindex
+	}
+	return nil
+}
+
+func (m *QueryAllDdlindexResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "kwil.kwil.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "kwil.kwil.QueryParamsResponse")
@@ -492,49 +676,60 @@ func init() {
 	proto.RegisterType((*QueryGetDdlResponse)(nil), "kwil.kwil.QueryGetDdlResponse")
 	proto.RegisterType((*QueryAllDdlRequest)(nil), "kwil.kwil.QueryAllDdlRequest")
 	proto.RegisterType((*QueryAllDdlResponse)(nil), "kwil.kwil.QueryAllDdlResponse")
+	proto.RegisterType((*QueryGetDdlindexRequest)(nil), "kwil.kwil.QueryGetDdlindexRequest")
+	proto.RegisterType((*QueryGetDdlindexResponse)(nil), "kwil.kwil.QueryGetDdlindexResponse")
+	proto.RegisterType((*QueryAllDdlindexRequest)(nil), "kwil.kwil.QueryAllDdlindexRequest")
+	proto.RegisterType((*QueryAllDdlindexResponse)(nil), "kwil.kwil.QueryAllDdlindexResponse")
 }
 
 func init() { proto.RegisterFile("kwil/query.proto", fileDescriptor_09e2fb7d218f1a73) }
 
 var fileDescriptor_09e2fb7d218f1a73 = []byte{
-	// 581 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0x31, 0x6f, 0xd3, 0x40,
-	0x14, 0xc7, 0xe3, 0xa6, 0x8d, 0x94, 0x03, 0x45, 0xcd, 0xd5, 0x8a, 0xd2, 0x28, 0x35, 0xe8, 0xa8,
-	0x0a, 0x2a, 0x92, 0x8f, 0x96, 0x85, 0x85, 0xa1, 0x55, 0xd4, 0xae, 0x25, 0x12, 0x0b, 0x42, 0x42,
-	0x17, 0xee, 0x64, 0x45, 0x5c, 0x7d, 0x6e, 0xec, 0xd2, 0x56, 0xc0, 0xc2, 0xc0, 0x8c, 0xc4, 0xce,
-	0xce, 0x37, 0xe9, 0x58, 0x89, 0x85, 0x09, 0xa1, 0x84, 0x0f, 0x82, 0xee, 0xee, 0xd9, 0xb1, 0x6b,
-	0x13, 0x18, 0xba, 0x44, 0xf1, 0xf3, 0xff, 0xbd, 0xff, 0xef, 0xde, 0xbd, 0x67, 0xb4, 0xfa, 0xe6,
-	0x6c, 0x2c, 0xe9, 0xc9, 0xa9, 0x98, 0x5c, 0xf8, 0xd1, 0x44, 0x25, 0x0a, 0x37, 0x75, 0xc4, 0xd7,
-	0x3f, 0x3d, 0x37, 0x50, 0x81, 0x32, 0x51, 0xaa, 0xff, 0x59, 0x41, 0xaf, 0x1f, 0x28, 0x15, 0x48,
-	0x41, 0x59, 0x34, 0xa6, 0x2c, 0x0c, 0x55, 0xc2, 0x92, 0xb1, 0x0a, 0x63, 0x78, 0xbb, 0xfd, 0x5a,
-	0xc5, 0xc7, 0x2a, 0xa6, 0x23, 0x16, 0x0b, 0x5b, 0x97, 0xbe, 0xdd, 0x19, 0x89, 0x84, 0xed, 0xd0,
-	0x88, 0x05, 0xe3, 0xd0, 0x88, 0x41, 0xdb, 0x36, 0xe6, 0x11, 0x9b, 0xb0, 0xe3, 0x34, 0xdd, 0x35,
-	0x21, 0xce, 0x12, 0xa6, 0x0b, 0xa4, 0xd1, 0x96, 0x8d, 0x72, 0x69, 0x9f, 0x89, 0x8b, 0xf0, 0x33,
-	0x5d, 0xfa, 0xc8, 0xa4, 0x0e, 0xc5, 0xc9, 0xa9, 0x88, 0x13, 0x72, 0x80, 0xd6, 0x0a, 0xd1, 0x38,
-	0x52, 0x61, 0x2c, 0x30, 0x45, 0x0d, 0x6b, 0xd1, 0x75, 0xee, 0x3a, 0x0f, 0x6e, 0xed, 0xb6, 0xfd,
-	0xec, 0x84, 0xbe, 0x95, 0xee, 0x2f, 0x5f, 0xfe, 0xbc, 0x53, 0x1b, 0x82, 0x8c, 0x3c, 0x42, 0x5d,
-	0x53, 0xe7, 0x50, 0x24, 0x83, 0x14, 0x04, 0x3c, 0xb0, 0x8b, 0x56, 0xc6, 0x21, 0x17, 0xe7, 0xa6,
-	0x56, 0x73, 0x68, 0x1f, 0xc8, 0x73, 0xb4, 0x5e, 0x91, 0x01, 0xfe, 0x4f, 0x50, 0x33, 0x3b, 0x0f,
-	0x20, 0xb8, 0x39, 0x84, 0x2c, 0x01, 0x28, 0xe6, 0x62, 0x32, 0x02, 0x90, 0x3d, 0x29, 0x4b, 0x20,
-	0x07, 0x08, 0xcd, 0xfb, 0x09, 0x65, 0xb7, 0x7c, 0xdb, 0x7c, 0x5f, 0x2b, 0x7d, 0x7b, 0xa9, 0xd0,
-	0x7c, 0xff, 0x88, 0x05, 0x02, 0x72, 0x87, 0xb9, 0x4c, 0xf2, 0xd5, 0x01, 0xf6, 0xa2, 0x49, 0x35,
-	0x7b, 0xfd, 0xbf, 0xd9, 0xf1, 0x61, 0x81, 0x6f, 0xc9, 0xf0, 0xdd, 0xff, 0x27, 0x9f, 0xb5, 0x2d,
-	0x00, 0x6e, 0xc3, 0x5d, 0xeb, 0xde, 0x72, 0xb9, 0xf8, 0x1e, 0x9e, 0xc2, 0x04, 0xa4, 0x5a, 0x38,
-	0xc5, 0x16, 0xaa, 0x73, 0x2e, 0xa1, 0x49, 0xad, 0x3c, 0x3f, 0x97, 0x40, 0xae, 0x05, 0xe4, 0x25,
-	0x58, 0xe9, 0x56, 0xcc, 0xad, 0x6e, 0xaa, 0xd3, 0x9f, 0x1c, 0xa0, 0x4b, 0xcb, 0x5f, 0xa7, 0xab,
-	0x2f, 0xa4, 0xbb, 0xb1, 0x8e, 0xee, 0x7e, 0x5b, 0x46, 0x2b, 0x06, 0x04, 0x8f, 0x50, 0xc3, 0x6e,
-	0x00, 0xde, 0xc8, 0xf9, 0x96, 0x57, 0xab, 0xe7, 0xfd, 0xed, 0xb5, 0x2d, 0x4f, 0xd6, 0x3f, 0x7e,
-	0xff, 0xfd, 0x65, 0x69, 0x0d, 0xb7, 0xa9, 0xd9, 0xd4, 0xdc, 0x5e, 0xe3, 0xf7, 0xa8, 0x99, 0x8d,
-	0x09, 0xbe, 0x77, 0xbd, 0x4e, 0xc5, 0x8e, 0xf5, 0x36, 0x17, 0x8b, 0xc0, 0x72, 0xd3, 0x58, 0x7a,
-	0xb8, 0x9f, 0xb3, 0xcc, 0xc6, 0x8f, 0xbe, 0x33, 0x03, 0xf1, 0x01, 0x9f, 0xa1, 0xdb, 0x59, 0xea,
-	0x9e, 0x94, 0x65, 0x80, 0x8a, 0xdd, 0x2a, 0x03, 0x54, 0xed, 0x06, 0xe9, 0x1b, 0x80, 0x0e, 0x76,
-	0xab, 0x00, 0x30, 0x47, 0xf5, 0x01, 0x97, 0xe5, 0xbe, 0x16, 0xc6, 0xb8, 0xdc, 0xd7, 0xe2, 0xe4,
-	0x12, 0xcf, 0x78, 0x74, 0x71, 0x27, 0xef, 0xc1, 0x65, 0x76, 0xbc, 0x57, 0xa8, 0x31, 0xe0, 0x52,
-	0x1f, 0x6c, 0xa3, 0x8a, 0x79, 0x81, 0x51, 0x71, 0x08, 0x49, 0xc7, 0x18, 0xad, 0xe2, 0x56, 0xd1,
-	0x68, 0xff, 0xe1, 0xe5, 0xd4, 0x73, 0xae, 0xa6, 0x9e, 0xf3, 0x6b, 0xea, 0x39, 0x9f, 0x67, 0x5e,
-	0xed, 0x6a, 0xe6, 0xd5, 0x7e, 0xcc, 0xbc, 0xda, 0x0b, 0xfb, 0xf1, 0x3e, 0xb7, 0xd2, 0xe4, 0x22,
-	0x12, 0xf1, 0xa8, 0x61, 0xbe, 0xce, 0x8f, 0xff, 0x04, 0x00, 0x00, 0xff, 0xff, 0x59, 0x0b, 0x56,
-	0x81, 0x55, 0x06, 0x00, 0x00,
+	// 695 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0x41, 0x6f, 0xd3, 0x4c,
+	0x10, 0x86, 0xe3, 0xe6, 0x6b, 0xd4, 0x6c, 0x3f, 0x45, 0xcd, 0xc6, 0x84, 0x34, 0x4d, 0x0c, 0xda,
+	0x54, 0x05, 0x15, 0xc9, 0xa6, 0x45, 0x48, 0x5c, 0x38, 0xb4, 0x8a, 0xda, 0x6b, 0x1b, 0x89, 0x0b,
+	0x42, 0x42, 0x1b, 0x6c, 0x59, 0x11, 0x5b, 0xdb, 0x8d, 0x5d, 0x9a, 0x0a, 0xb8, 0x70, 0xe0, 0x8c,
+	0xc4, 0x05, 0x71, 0xe0, 0xf7, 0xf4, 0x58, 0x89, 0x0b, 0x27, 0x84, 0x12, 0x7e, 0x08, 0xf2, 0xec,
+	0xd8, 0xb1, 0x6b, 0x63, 0x7a, 0xc8, 0xa5, 0xaa, 0xc7, 0x33, 0xf3, 0x3e, 0xf3, 0x6e, 0x76, 0x64,
+	0xb2, 0xf6, 0xfa, 0x7c, 0x24, 0x8c, 0xd3, 0x33, 0x6b, 0x7c, 0xa1, 0x7b, 0x63, 0x37, 0x70, 0x69,
+	0x35, 0x8c, 0xe8, 0xe1, 0x9f, 0xb6, 0x6a, 0xbb, 0xb6, 0x0b, 0x51, 0x23, 0xfc, 0x4f, 0x26, 0xb4,
+	0x3b, 0xb6, 0xeb, 0xda, 0xc2, 0x32, 0xb8, 0x37, 0x32, 0xb8, 0xe3, 0xb8, 0x01, 0x0f, 0x46, 0xae,
+	0xe3, 0xe3, 0xdb, 0xed, 0x57, 0xae, 0x7f, 0xe2, 0xfa, 0xc6, 0x90, 0xfb, 0x96, 0xec, 0x6b, 0xbc,
+	0xd9, 0x19, 0x5a, 0x01, 0xdf, 0x31, 0x3c, 0x6e, 0x8f, 0x1c, 0x48, 0xc6, 0xdc, 0x3a, 0x88, 0x7b,
+	0x7c, 0xcc, 0x4f, 0xa2, 0x72, 0x15, 0x42, 0x26, 0x0f, 0x78, 0xd8, 0x20, 0x8a, 0xd6, 0x64, 0xd4,
+	0x14, 0xf8, 0xdc, 0x88, 0x9e, 0x47, 0x8e, 0x69, 0x4d, 0x64, 0x90, 0xa9, 0x84, 0x1e, 0x87, 0x7a,
+	0x47, 0xd0, 0x6f, 0x60, 0x9d, 0x9e, 0x59, 0x7e, 0xc0, 0x0e, 0x48, 0x23, 0x15, 0xf5, 0x3d, 0xd7,
+	0xf1, 0x2d, 0x6a, 0x90, 0x8a, 0xd4, 0x6d, 0x29, 0x77, 0x95, 0xfb, 0xab, 0xbb, 0x75, 0x3d, 0x1e,
+	0x5b, 0x97, 0xa9, 0xfb, 0xff, 0x5d, 0xfe, 0xbc, 0x53, 0x1a, 0x60, 0x1a, 0x7b, 0x48, 0x5a, 0xd0,
+	0xe7, 0xd0, 0x0a, 0xfa, 0x11, 0x1d, 0x6a, 0x50, 0x95, 0x2c, 0x03, 0x08, 0xf4, 0xaa, 0x0e, 0xe4,
+	0x03, 0x7b, 0x46, 0xd6, 0x73, 0x2a, 0x50, 0xff, 0x09, 0xa9, 0xc6, 0x43, 0x22, 0x82, 0x9a, 0x40,
+	0x88, 0x0b, 0x90, 0x62, 0x9e, 0xcc, 0x86, 0x08, 0xb2, 0x27, 0x44, 0x06, 0xe4, 0x80, 0x90, 0xb9,
+	0xc9, 0xd8, 0x76, 0x4b, 0x97, 0x27, 0xa2, 0x87, 0x99, 0xba, 0x3c, 0x69, 0x3c, 0x11, 0xfd, 0x88,
+	0xdb, 0x16, 0xd6, 0x0e, 0x12, 0x95, 0xec, 0x9b, 0x82, 0xec, 0x69, 0x91, 0x7c, 0xf6, 0xf2, 0x8d,
+	0xd9, 0xe9, 0x61, 0x8a, 0x6f, 0x09, 0xf8, 0xee, 0xfd, 0x93, 0x4f, 0xca, 0xa6, 0x00, 0xb7, 0xf1,
+	0xac, 0x43, 0x6f, 0x4d, 0x51, 0x7c, 0x0e, 0x4f, 0xf1, 0x17, 0x10, 0xe5, 0xe2, 0x14, 0x5b, 0xa4,
+	0x6c, 0x9a, 0x02, 0x4d, 0xaa, 0x25, 0xf9, 0x4d, 0x81, 0xe4, 0x61, 0x02, 0x7b, 0x81, 0x52, 0xa1,
+	0x15, 0x73, 0xa9, 0x45, 0x39, 0xfd, 0x51, 0x41, 0xba, 0xa8, 0xfd, 0x75, 0xba, 0x72, 0x21, 0xdd,
+	0xe2, 0x1c, 0x35, 0xc8, 0xed, 0x84, 0x4b, 0xe0, 0x5c, 0xb1, 0xad, 0xc7, 0x89, 0x0b, 0x11, 0x17,
+	0x20, 0xfd, 0x63, 0xb2, 0x12, 0x5d, 0x4e, 0xf4, 0xa6, 0x91, 0x1e, 0x01, 0x5e, 0xe1, 0x1c, 0x71,
+	0x2a, 0xe3, 0xc8, 0x20, 0xbd, 0x48, 0x31, 0x2c, 0xca, 0xef, 0xaf, 0x4a, 0xe2, 0xfa, 0x14, 0x63,
+	0x97, 0x6f, 0x88, 0xbd, 0xb0, 0x33, 0xd8, 0xfd, 0x52, 0x21, 0xcb, 0x00, 0x47, 0x87, 0xa4, 0x22,
+	0xb7, 0x10, 0xed, 0x26, 0x08, 0xb2, 0xeb, 0xad, 0xad, 0xfd, 0xed, 0xb5, 0x6c, 0xcf, 0xd6, 0x3f,
+	0x7c, 0xff, 0xfd, 0x79, 0xa9, 0x41, 0xeb, 0x06, 0xac, 0xcc, 0xc4, 0xc2, 0xa5, 0xef, 0x48, 0x35,
+	0xbe, 0xaa, 0xb4, 0x77, 0xbd, 0x4f, 0xce, 0x9e, 0x6b, 0x6f, 0x16, 0x27, 0xa1, 0xe4, 0x26, 0x48,
+	0x6a, 0xb4, 0x93, 0x90, 0x8c, 0x57, 0x80, 0xf1, 0x16, 0x3c, 0x7b, 0x4f, 0xcf, 0xc9, 0xff, 0x71,
+	0xe9, 0x9e, 0x10, 0x59, 0x80, 0x9c, 0xfd, 0x96, 0x05, 0xc8, 0xdb, 0x4f, 0xac, 0x03, 0x00, 0x4d,
+	0xaa, 0xe6, 0x01, 0x50, 0x93, 0x94, 0xfb, 0xa6, 0xc8, 0xfa, 0x9a, 0x5a, 0x25, 0x59, 0x5f, 0xd3,
+	0xdb, 0x83, 0x69, 0xa0, 0xd1, 0xa2, 0xcd, 0xa4, 0x86, 0x29, 0xe2, 0xf1, 0x5e, 0x92, 0x4a, 0xdf,
+	0x14, 0xe1, 0x60, 0xdd, 0x3c, 0xe6, 0x02, 0xa1, 0xf4, 0x22, 0x60, 0x4d, 0x10, 0x5a, 0xa3, 0xb5,
+	0xb4, 0x10, 0x9d, 0x90, 0x95, 0xe8, 0x07, 0x49, 0x59, 0x3e, 0x6c, 0xf2, 0x02, 0xb5, 0x7b, 0x85,
+	0x39, 0x28, 0xd6, 0x03, 0xb1, 0x2e, 0xdd, 0x48, 0x8b, 0x41, 0x52, 0x3c, 0x9a, 0x4f, 0x56, 0xa3,
+	0xc2, 0x70, 0x3e, 0x96, 0x3f, 0x40, 0xb1, 0x78, 0xce, 0xed, 0x63, 0x1b, 0x20, 0x7e, 0x8b, 0x36,
+	0x72, 0xc4, 0xf7, 0x1f, 0x5c, 0x4e, 0x35, 0xe5, 0x6a, 0xaa, 0x29, 0xbf, 0xa6, 0x9a, 0xf2, 0x69,
+	0xa6, 0x95, 0xae, 0x66, 0x5a, 0xe9, 0xc7, 0x4c, 0x2b, 0x3d, 0x97, 0x1f, 0x11, 0x13, 0x99, 0x1f,
+	0x5c, 0x78, 0x96, 0x3f, 0xac, 0xc0, 0x07, 0xc1, 0xa3, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xf5,
+	0x23, 0x0b, 0x6a, 0xdd, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -559,6 +754,10 @@ type QueryClient interface {
 	Ddl(ctx context.Context, in *QueryGetDdlRequest, opts ...grpc.CallOption) (*QueryGetDdlResponse, error)
 	// Queries a list of Ddl items.
 	DdlAll(ctx context.Context, in *QueryAllDdlRequest, opts ...grpc.CallOption) (*QueryAllDdlResponse, error)
+	// Queries a Ddlindex by index.
+	Ddlindex(ctx context.Context, in *QueryGetDdlindexRequest, opts ...grpc.CallOption) (*QueryGetDdlindexResponse, error)
+	// Queries a list of Ddlindex items.
+	DdlindexAll(ctx context.Context, in *QueryAllDdlindexRequest, opts ...grpc.CallOption) (*QueryAllDdlindexResponse, error)
 }
 
 type queryClient struct {
@@ -614,6 +813,24 @@ func (c *queryClient) DdlAll(ctx context.Context, in *QueryAllDdlRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Ddlindex(ctx context.Context, in *QueryGetDdlindexRequest, opts ...grpc.CallOption) (*QueryGetDdlindexResponse, error) {
+	out := new(QueryGetDdlindexResponse)
+	err := c.cc.Invoke(ctx, "/kwil.kwil.Query/Ddlindex", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DdlindexAll(ctx context.Context, in *QueryAllDdlindexRequest, opts ...grpc.CallOption) (*QueryAllDdlindexResponse, error) {
+	out := new(QueryAllDdlindexResponse)
+	err := c.cc.Invoke(ctx, "/kwil.kwil.Query/DdlindexAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -626,6 +843,10 @@ type QueryServer interface {
 	Ddl(context.Context, *QueryGetDdlRequest) (*QueryGetDdlResponse, error)
 	// Queries a list of Ddl items.
 	DdlAll(context.Context, *QueryAllDdlRequest) (*QueryAllDdlResponse, error)
+	// Queries a Ddlindex by index.
+	Ddlindex(context.Context, *QueryGetDdlindexRequest) (*QueryGetDdlindexResponse, error)
+	// Queries a list of Ddlindex items.
+	DdlindexAll(context.Context, *QueryAllDdlindexRequest) (*QueryAllDdlindexResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -646,6 +867,12 @@ func (*UnimplementedQueryServer) Ddl(ctx context.Context, req *QueryGetDdlReques
 }
 func (*UnimplementedQueryServer) DdlAll(ctx context.Context, req *QueryAllDdlRequest) (*QueryAllDdlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DdlAll not implemented")
+}
+func (*UnimplementedQueryServer) Ddlindex(ctx context.Context, req *QueryGetDdlindexRequest) (*QueryGetDdlindexResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Ddlindex not implemented")
+}
+func (*UnimplementedQueryServer) DdlindexAll(ctx context.Context, req *QueryAllDdlindexRequest) (*QueryAllDdlindexResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DdlindexAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -742,6 +969,42 @@ func _Query_DdlAll_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Ddlindex_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetDdlindexRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Ddlindex(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kwil.kwil.Query/Ddlindex",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Ddlindex(ctx, req.(*QueryGetDdlindexRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DdlindexAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDdlindexRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DdlindexAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kwil.kwil.Query/DdlindexAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DdlindexAll(ctx, req.(*QueryAllDdlindexRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "kwil.kwil.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -765,6 +1028,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DdlAll",
 			Handler:    _Query_DdlAll_Handler,
+		},
+		{
+			MethodName: "Ddlindex",
+			Handler:    _Query_Ddlindex_Handler,
+		},
+		{
+			MethodName: "DdlindexAll",
+			Handler:    _Query_DdlindexAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1121,6 +1392,153 @@ func (m *QueryAllDdlResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetDdlindexRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDdlindexRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDdlindexRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Index) > 0 {
+		i -= len(m.Index)
+		copy(dAtA[i:], m.Index)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Index)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetDdlindexResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDdlindexResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDdlindexResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Ddlindex.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDdlindexRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDdlindexRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDdlindexRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDdlindexResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDdlindexResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDdlindexResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Ddlindex) > 0 {
+		for iNdEx := len(m.Ddlindex) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Ddlindex[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1253,6 +1671,62 @@ func (m *QueryAllDdlResponse) Size() (n int) {
 	_ = l
 	if len(m.Ddl) > 0 {
 		for _, e := range m.Ddl {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDdlindexRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Index)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDdlindexResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.Ddlindex.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllDdlindexRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllDdlindexResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Ddlindex) > 0 {
+		for _, e := range m.Ddlindex {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2085,6 +2559,377 @@ func (m *QueryAllDdlResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Ddl = append(m.Ddl, Ddl{})
 			if err := m.Ddl[len(m.Ddl)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDdlindexRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDdlindexRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDdlindexRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Index = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDdlindexResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDdlindexResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDdlindexResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ddlindex", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Ddlindex.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDdlindexRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDdlindexRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDdlindexRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDdlindexResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDdlindexResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDdlindexResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ddlindex", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Ddlindex = append(m.Ddlindex, Ddlindex{})
+			if err := m.Ddlindex[len(m.Ddlindex)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

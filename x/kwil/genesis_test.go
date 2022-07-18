@@ -30,6 +30,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		DdlindexList: []types.Ddlindex{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -43,5 +51,6 @@ func TestGenesis(t *testing.T) {
 
 	require.ElementsMatch(t, genesisState.DatabasesList, got.DatabasesList)
 	require.ElementsMatch(t, genesisState.DdlList, got.DdlList)
+	require.ElementsMatch(t, genesisState.DdlindexList, got.DdlindexList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

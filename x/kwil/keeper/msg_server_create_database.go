@@ -41,7 +41,7 @@ func (k msgServer) CreateDatabase(goCtx context.Context, msg *types.MsgCreateDat
 
 	// Create new DDL
 	newDDL := types.Ddl{
-		Index:     dbName + "0",
+		Index:     dbName,
 		Statement: "CREATE DATABASE " + dbName,
 		Position:  0,
 		Final:     true,
@@ -49,6 +49,13 @@ func (k msgServer) CreateDatabase(goCtx context.Context, msg *types.MsgCreateDat
 
 	//Set DDL in the database
 	k.SetDdl(ctx, newDDL)
+
+	newDDLIndex := types.Ddlindex{
+		Index:    dbName,
+		Name:     dbName,
+		Position: 0,
+	}
+	k.SetDdlindex(ctx, newDDLIndex)
 
 	return &types.MsgCreateDatabaseResponse{Id: dbName}, nil
 }
