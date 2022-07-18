@@ -1,0 +1,59 @@
+syntax = "proto3";
+package kwil.kwil;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "kwil/params.proto";
+import "kwil/databases.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "kwil/x/kwil/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/kwil/kwil/params";
+  }
+  // Queries a Databases by index.
+	rpc Databases(QueryGetDatabasesRequest) returns (QueryGetDatabasesResponse) {
+		option (google.api.http).get = "/kwil/kwil/databases/{index}";
+	}
+
+	// Queries a list of Databases items.
+	rpc DatabasesAll(QueryAllDatabasesRequest) returns (QueryAllDatabasesResponse) {
+		option (google.api.http).get = "/kwil/kwil/databases";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetDatabasesRequest {
+	  string index = 1;
+
+}
+
+message QueryGetDatabasesResponse {
+	Databases databases = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDatabasesRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDatabasesResponse {
+	repeated Databases databases = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

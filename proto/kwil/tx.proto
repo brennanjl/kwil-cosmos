@@ -1,0 +1,54 @@
+syntax = "proto3";
+package kwil.kwil;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "kwil/x/kwil/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc DatabaseWrite(MsgDatabaseWrite) returns (MsgDatabaseWriteResponse);
+  rpc CreateDatabase(MsgCreateDatabase) returns (MsgCreateDatabaseResponse);
+  rpc DDL(MsgDDL) returns (MsgDDLResponse);
+  rpc DefineQuery(MsgDefineQuery) returns (MsgDefineQueryResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgDatabaseWrite {
+  string creator = 1;
+  string database = 2;
+  string parQuer = 3;
+  string data = 4;
+}
+
+message MsgDatabaseWriteResponse {
+}
+
+message MsgCreateDatabase {
+  string creator = 1;
+  string seed = 2;
+}
+
+message MsgCreateDatabaseResponse {
+  string id = 1;
+}
+
+message MsgDDL {
+  string creator = 1;
+  string dbid = 2;
+  string ddl = 3;
+}
+
+message MsgDDLResponse {
+}
+
+message MsgDefineQuery {
+  string creator = 1;
+  string parQuer = 2;
+  bool publicity = 3;
+}
+
+message MsgDefineQueryResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message
