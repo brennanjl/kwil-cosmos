@@ -40,7 +40,6 @@ message MsgDDL {
 }
 
 message MsgDDLResponse {
-  string id = 1;
 }
 
 message MsgDefineQuery {
