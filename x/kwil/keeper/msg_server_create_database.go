@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"kwil/x/kwil/types"
+	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -39,10 +40,16 @@ func (k msgServer) CreateDatabase(goCtx context.Context, msg *types.MsgCreateDat
 	// Store the DB
 	k.SetDatabases(ctx, newDB)
 
+	// TODO: We probably want to allow people to define any CREATE DATABASE esq statement, so that this natively supports non-SQL dbs
+	// This change would require changing the protobufs and messages, so I'm not going to worry about it for now
+	var createStatement strings.Builder
+	createStatement.WriteString("CREATE DATABASE ")
+	createStatement.WriteString(dbName)
+
 	// Create new DDL
 	newDDL := types.Ddl{
 		Index:     dbName,
-		Statement: "CREATE DATABASE " + dbName,
+		Statement: createStatement.String(),
 		Position:  0,
 		Final:     true,
 	}

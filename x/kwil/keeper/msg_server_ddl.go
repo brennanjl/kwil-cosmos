@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"kwil/x/kwil/types"
 
@@ -35,8 +36,14 @@ func (k msgServer) DDL(goCtx context.Context, msg *types.MsgDDL) (*types.MsgDDLR
 
 	// Now we check to ensure that there is NOT already DDL at the new location in the map
 	newPosition := ddlIndex.Position + 1
-	newDDLLocation := msg.Dbid + strconv.Itoa(int(newPosition))
-	_, isFound = k.GetDdl(ctx, newDDLLocation)
+
+	// Creating string builder to create the index
+	var newDDLLocation strings.Builder
+
+	// Create index
+	newDDLLocation.WriteString(msg.Dbid)
+	newDDLLocation.WriteString(strconv.Itoa(int(newPosition)))
+	_, isFound = k.GetDdl(ctx, newDDLLocation.String())
 	if isFound {
 		fmt.Println("There was an error when adding new DDL")
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Internal error: DDL already exists at this map location")
@@ -45,7 +52,7 @@ func (k msgServer) DDL(goCtx context.Context, msg *types.MsgDDL) (*types.MsgDDLR
 	// If we have reached this point, we can update the new DDL and DDL index
 
 	newDDL := types.Ddl{
-		Index:     newDDLLocation,
+		Index:     newDDLLocation.String(),
 		Statement: msg.Ddl,
 		Position:  newPosition,
 		Final:     true,
