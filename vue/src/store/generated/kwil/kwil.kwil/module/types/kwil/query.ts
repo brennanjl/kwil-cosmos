@@ -8,6 +8,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Ddl } from "../kwil/ddl";
 import { Ddlindex } from "../kwil/ddlindex";
+import { Queryids } from "../kwil/queryids";
 
 export const protobufPackage = "kwil.kwil";
 
@@ -68,6 +69,23 @@ export interface QueryAllDdlindexRequest {
 
 export interface QueryAllDdlindexResponse {
   ddlindex: Ddlindex[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetQueryidsRequest {
+  index: string;
+}
+
+export interface QueryGetQueryidsResponse {
+  queryids: Queryids | undefined;
+}
+
+export interface QueryAllQueryidsRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllQueryidsResponse {
+  queryids: Queryids[];
   pagination: PageResponse | undefined;
 }
 
@@ -1056,6 +1074,314 @@ export const QueryAllDdlindexResponse = {
   },
 };
 
+const baseQueryGetQueryidsRequest: object = { index: "" };
+
+export const QueryGetQueryidsRequest = {
+  encode(
+    message: QueryGetQueryidsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetQueryidsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetQueryidsRequest,
+    } as QueryGetQueryidsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetQueryidsRequest {
+    const message = {
+      ...baseQueryGetQueryidsRequest,
+    } as QueryGetQueryidsRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetQueryidsRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetQueryidsRequest>
+  ): QueryGetQueryidsRequest {
+    const message = {
+      ...baseQueryGetQueryidsRequest,
+    } as QueryGetQueryidsRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetQueryidsResponse: object = {};
+
+export const QueryGetQueryidsResponse = {
+  encode(
+    message: QueryGetQueryidsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.queryids !== undefined) {
+      Queryids.encode(message.queryids, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetQueryidsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetQueryidsResponse,
+    } as QueryGetQueryidsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.queryids = Queryids.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetQueryidsResponse {
+    const message = {
+      ...baseQueryGetQueryidsResponse,
+    } as QueryGetQueryidsResponse;
+    if (object.queryids !== undefined && object.queryids !== null) {
+      message.queryids = Queryids.fromJSON(object.queryids);
+    } else {
+      message.queryids = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetQueryidsResponse): unknown {
+    const obj: any = {};
+    message.queryids !== undefined &&
+      (obj.queryids = message.queryids
+        ? Queryids.toJSON(message.queryids)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetQueryidsResponse>
+  ): QueryGetQueryidsResponse {
+    const message = {
+      ...baseQueryGetQueryidsResponse,
+    } as QueryGetQueryidsResponse;
+    if (object.queryids !== undefined && object.queryids !== null) {
+      message.queryids = Queryids.fromPartial(object.queryids);
+    } else {
+      message.queryids = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllQueryidsRequest: object = {};
+
+export const QueryAllQueryidsRequest = {
+  encode(
+    message: QueryAllQueryidsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllQueryidsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllQueryidsRequest,
+    } as QueryAllQueryidsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllQueryidsRequest {
+    const message = {
+      ...baseQueryAllQueryidsRequest,
+    } as QueryAllQueryidsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllQueryidsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllQueryidsRequest>
+  ): QueryAllQueryidsRequest {
+    const message = {
+      ...baseQueryAllQueryidsRequest,
+    } as QueryAllQueryidsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllQueryidsResponse: object = {};
+
+export const QueryAllQueryidsResponse = {
+  encode(
+    message: QueryAllQueryidsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.queryids) {
+      Queryids.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllQueryidsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllQueryidsResponse,
+    } as QueryAllQueryidsResponse;
+    message.queryids = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.queryids.push(Queryids.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllQueryidsResponse {
+    const message = {
+      ...baseQueryAllQueryidsResponse,
+    } as QueryAllQueryidsResponse;
+    message.queryids = [];
+    if (object.queryids !== undefined && object.queryids !== null) {
+      for (const e of object.queryids) {
+        message.queryids.push(Queryids.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllQueryidsResponse): unknown {
+    const obj: any = {};
+    if (message.queryids) {
+      obj.queryids = message.queryids.map((e) =>
+        e ? Queryids.toJSON(e) : undefined
+      );
+    } else {
+      obj.queryids = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllQueryidsResponse>
+  ): QueryAllQueryidsResponse {
+    const message = {
+      ...baseQueryAllQueryidsResponse,
+    } as QueryAllQueryidsResponse;
+    message.queryids = [];
+    if (object.queryids !== undefined && object.queryids !== null) {
+      for (const e of object.queryids) {
+        message.queryids.push(Queryids.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1078,6 +1404,12 @@ export interface Query {
   DdlindexAll(
     request: QueryAllDdlindexRequest
   ): Promise<QueryAllDdlindexResponse>;
+  /** Queries a Queryids by index. */
+  Queryids(request: QueryGetQueryidsRequest): Promise<QueryGetQueryidsResponse>;
+  /** Queries a list of Queryids items. */
+  QueryidsAll(
+    request: QueryAllQueryidsRequest
+  ): Promise<QueryAllQueryidsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1140,6 +1472,26 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("kwil.kwil.Query", "DdlindexAll", data);
     return promise.then((data) =>
       QueryAllDdlindexResponse.decode(new Reader(data))
+    );
+  }
+
+  Queryids(
+    request: QueryGetQueryidsRequest
+  ): Promise<QueryGetQueryidsResponse> {
+    const data = QueryGetQueryidsRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "Queryids", data);
+    return promise.then((data) =>
+      QueryGetQueryidsResponse.decode(new Reader(data))
+    );
+  }
+
+  QueryidsAll(
+    request: QueryAllQueryidsRequest
+  ): Promise<QueryAllQueryidsResponse> {
+    const data = QueryAllQueryidsRequest.encode(request).finish();
+    const promise = this.rpc.request("kwil.kwil.Query", "QueryidsAll", data);
+    return promise.then((data) =>
+      QueryAllQueryidsResponse.decode(new Reader(data))
     );
   }
 }

@@ -3,6 +3,7 @@ import { Params } from "../kwil/params";
 import { Databases } from "../kwil/databases";
 import { Ddl } from "../kwil/ddl";
 import { Ddlindex } from "../kwil/ddlindex";
+import { Queryids } from "../kwil/queryids";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "kwil.kwil";
@@ -12,8 +13,9 @@ export interface GenesisState {
   params: Params | undefined;
   databasesList: Databases[];
   ddlList: Ddl[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   ddlindexList: Ddlindex[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  queryidsList: Queryids[];
 }
 
 const baseGenesisState: object = {};
@@ -32,6 +34,9 @@ export const GenesisState = {
     for (const v of message.ddlindexList) {
       Ddlindex.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+    for (const v of message.queryidsList) {
+      Queryids.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -42,6 +47,7 @@ export const GenesisState = {
     message.databasesList = [];
     message.ddlList = [];
     message.ddlindexList = [];
+    message.queryidsList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -57,6 +63,9 @@ export const GenesisState = {
         case 4:
           message.ddlindexList.push(Ddlindex.decode(reader, reader.uint32()));
           break;
+        case 5:
+          message.queryidsList.push(Queryids.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -70,6 +79,7 @@ export const GenesisState = {
     message.databasesList = [];
     message.ddlList = [];
     message.ddlindexList = [];
+    message.queryidsList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -88,6 +98,11 @@ export const GenesisState = {
     if (object.ddlindexList !== undefined && object.ddlindexList !== null) {
       for (const e of object.ddlindexList) {
         message.ddlindexList.push(Ddlindex.fromJSON(e));
+      }
+    }
+    if (object.queryidsList !== undefined && object.queryidsList !== null) {
+      for (const e of object.queryidsList) {
+        message.queryidsList.push(Queryids.fromJSON(e));
       }
     }
     return message;
@@ -116,6 +131,13 @@ export const GenesisState = {
     } else {
       obj.ddlindexList = [];
     }
+    if (message.queryidsList) {
+      obj.queryidsList = message.queryidsList.map((e) =>
+        e ? Queryids.toJSON(e) : undefined
+      );
+    } else {
+      obj.queryidsList = [];
+    }
     return obj;
   },
 
@@ -124,6 +146,7 @@ export const GenesisState = {
     message.databasesList = [];
     message.ddlList = [];
     message.ddlindexList = [];
+    message.queryidsList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -142,6 +165,11 @@ export const GenesisState = {
     if (object.ddlindexList !== undefined && object.ddlindexList !== null) {
       for (const e of object.ddlindexList) {
         message.ddlindexList.push(Ddlindex.fromPartial(e));
+      }
+    }
+    if (object.queryidsList !== undefined && object.queryidsList !== null) {
+      for (const e of object.queryidsList) {
+        message.queryidsList.push(Queryids.fromPartial(e));
       }
     }
     return message;

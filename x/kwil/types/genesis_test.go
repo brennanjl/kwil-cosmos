@@ -46,6 +46,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				QueryidsList: []types.Queryids{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -82,6 +90,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated ddlindex",
 			genState: &types.GenesisState{
 				DdlindexList: []types.Ddlindex{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated queryids",
+			genState: &types.GenesisState{
+				QueryidsList: []types.Queryids{
 					{
 						Index: "0",
 					},

@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 		DatabasesList: []Databases{},
 		DdlList:       []Ddl{},
 		DdlindexList:  []Ddlindex{},
+		QueryidsList:  []Queryids{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -50,6 +51,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for ddlindex")
 		}
 		ddlindexIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in queryids
+	queryidsIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.QueryidsList {
+		index := string(QueryidsKey(elem.Index))
+		if _, ok := queryidsIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for queryids")
+		}
+		queryidsIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

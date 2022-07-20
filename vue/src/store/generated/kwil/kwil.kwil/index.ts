@@ -4,9 +4,10 @@ import { Databases } from "./module/types/kwil/databases"
 import { Ddl } from "./module/types/kwil/ddl"
 import { Ddlindex } from "./module/types/kwil/ddlindex"
 import { Params } from "./module/types/kwil/params"
+import { Queryids } from "./module/types/kwil/queryids"
 
 
-export { Databases, Ddl, Ddlindex, Params };
+export { Databases, Ddl, Ddlindex, Params, Queryids };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -51,12 +52,15 @@ const getDefaultState = () => {
 				DdlAll: {},
 				Ddlindex: {},
 				DdlindexAll: {},
+				Queryids: {},
+				QueryidsAll: {},
 				
 				_Structure: {
 						Databases: getStructure(Databases.fromPartial({})),
 						Ddl: getStructure(Ddl.fromPartial({})),
 						Ddlindex: getStructure(Ddlindex.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
+						Queryids: getStructure(Queryids.fromPartial({})),
 						
 		},
 		_Registry: registry,
@@ -126,6 +130,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.DdlindexAll[JSON.stringify(params)] ?? {}
+		},
+				getQueryids: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Queryids[JSON.stringify(params)] ?? {}
+		},
+				getQueryidsAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.QueryidsAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -327,6 +343,69 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryQueryids({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryQueryids( key.index)).data
+				
+					
+				commit('QUERY', { query: 'Queryids', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQueryids', payload: { options: { all }, params: {...key},query }})
+				return getters['getQueryids']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryQueryids API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryQueryidsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryQueryidsAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryQueryidsAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'QueryidsAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQueryidsAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getQueryidsAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryQueryidsAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		async sendMsgDefineQuery({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDefineQuery(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDefineQuery:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgDatabaseWrite({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -339,21 +418,6 @@ export default {
 					throw new Error('TxClient:MsgDatabaseWrite:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgDatabaseWrite:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateDatabase({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateDatabase(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateDatabase:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -372,22 +436,35 @@ export default {
 				}
 			}
 		},
-		async sendMsgDefineQuery({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreateDatabase({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDefineQuery(value)
+				const msg = await txClient.msgCreateDatabase(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgDefineQuery:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgCreateDatabase:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
 		
+		async MsgDefineQuery({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDefineQuery(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDefineQuery:Create Could not create message: ' + e.message)
+				}
+			}
+		},
 		async MsgDatabaseWrite({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -398,19 +475,6 @@ export default {
 					throw new Error('TxClient:MsgDatabaseWrite:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgDatabaseWrite:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateDatabase({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateDatabase(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateDatabase:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -427,16 +491,16 @@ export default {
 				}
 			}
 		},
-		async MsgDefineQuery({ rootGetters }, { value }) {
+		async MsgCreateDatabase({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDefineQuery(value)
+				const msg = await txClient.msgCreateDatabase(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgDefineQuery:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgCreateDatabase:Create Could not create message: ' + e.message)
 				}
 			}
 		},

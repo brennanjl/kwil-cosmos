@@ -15,14 +15,13 @@ func (k msgServer) DDL(goCtx context.Context, msg *types.MsgDDL) (*types.MsgDDLR
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// First check if the specified DB exists
-	_, isFound := k.GetDatabases(ctx, msg.Dbid)
+	db, isFound := k.GetDatabases(ctx, msg.Dbid)
 	if !isFound {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Specified DBid does not exist")
 	}
 
 	// Check if caller is the database owner
-
-	if !k.IsDbOwner(ctx, msg.Dbid, msg.Creator) {
+	if db.Owner != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Caller is not the owner of this DB")
 	}
 

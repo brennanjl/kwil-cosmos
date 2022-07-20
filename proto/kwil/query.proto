@@ -8,6 +8,7 @@ import "kwil/params.proto";
 import "kwil/databases.proto";
 import "kwil/ddl.proto";
 import "kwil/ddlindex.proto";
+import "kwil/queryids.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "kwil/x/kwil/types";
@@ -46,6 +47,16 @@ service Query {
 	// Queries a list of Ddlindex items.
 	rpc DdlindexAll(QueryAllDdlindexRequest) returns (QueryAllDdlindexResponse) {
 		option (google.api.http).get = "/kwil/kwil/ddlindex";
+	}
+
+// Queries a Queryids by index.
+	rpc Queryids(QueryGetQueryidsRequest) returns (QueryGetQueryidsResponse) {
+		option (google.api.http).get = "/kwil/kwil/queryids/{index}";
+	}
+
+	// Queries a list of Queryids items.
+	rpc QueryidsAll(QueryAllQueryidsRequest) returns (QueryAllQueryidsResponse) {
+		option (google.api.http).get = "/kwil/kwil/queryids";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -111,6 +122,24 @@ message QueryAllDdlindexRequest {
 
 message QueryAllDdlindexResponse {
 	repeated Ddlindex ddlindex = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetQueryidsRequest {
+	  string index = 1;
+
+}
+
+message QueryGetQueryidsResponse {
+	Queryids queryids = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllQueryidsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllQueryidsResponse {
+	repeated Queryids queryids = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

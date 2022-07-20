@@ -40,6 +40,7 @@ message MsgDDL {
 }
 
 message MsgDDLResponse {
+  string id = 1;
 }
 
 message MsgDefineQuery {
@@ -50,6 +51,7 @@ message MsgDefineQuery {
 }
 
 message MsgDefineQueryResponse {
+  string id = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

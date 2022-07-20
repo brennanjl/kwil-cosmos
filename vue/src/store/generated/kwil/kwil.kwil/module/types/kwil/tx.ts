@@ -31,6 +31,7 @@ export interface MsgDDLResponse {}
 
 export interface MsgDefineQuery {
   creator: string;
+  dbId: string;
   parQuer: string;
   publicity: boolean;
 }
@@ -470,6 +471,7 @@ export const MsgDDLResponse = {
 
 const baseMsgDefineQuery: object = {
   creator: "",
+  dbId: "",
   parQuer: "",
   publicity: false,
 };
@@ -479,11 +481,14 @@ export const MsgDefineQuery = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.dbId !== "") {
+      writer.uint32(18).string(message.dbId);
+    }
     if (message.parQuer !== "") {
-      writer.uint32(18).string(message.parQuer);
+      writer.uint32(26).string(message.parQuer);
     }
     if (message.publicity === true) {
-      writer.uint32(24).bool(message.publicity);
+      writer.uint32(32).bool(message.publicity);
     }
     return writer;
   },
@@ -499,9 +504,12 @@ export const MsgDefineQuery = {
           message.creator = reader.string();
           break;
         case 2:
-          message.parQuer = reader.string();
+          message.dbId = reader.string();
           break;
         case 3:
+          message.parQuer = reader.string();
+          break;
+        case 4:
           message.publicity = reader.bool();
           break;
         default:
@@ -519,6 +527,11 @@ export const MsgDefineQuery = {
     } else {
       message.creator = "";
     }
+    if (object.dbId !== undefined && object.dbId !== null) {
+      message.dbId = String(object.dbId);
+    } else {
+      message.dbId = "";
+    }
     if (object.parQuer !== undefined && object.parQuer !== null) {
       message.parQuer = String(object.parQuer);
     } else {
@@ -535,6 +548,7 @@ export const MsgDefineQuery = {
   toJSON(message: MsgDefineQuery): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.dbId !== undefined && (obj.dbId = message.dbId);
     message.parQuer !== undefined && (obj.parQuer = message.parQuer);
     message.publicity !== undefined && (obj.publicity = message.publicity);
     return obj;
@@ -546,6 +560,11 @@ export const MsgDefineQuery = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.dbId !== undefined && object.dbId !== null) {
+      message.dbId = object.dbId;
+    } else {
+      message.dbId = "";
     }
     if (object.parQuer !== undefined && object.parQuer !== null) {
       message.parQuer = object.parQuer;

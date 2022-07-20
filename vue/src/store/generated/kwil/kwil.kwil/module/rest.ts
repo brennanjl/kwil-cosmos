@@ -92,6 +92,21 @@ export interface KwilQueryAllDdlindexResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface KwilQueryAllQueryidsResponse {
+  queryids?: KwilQueryids[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface KwilQueryGetDatabasesResponse {
   databases?: KwilDatabases;
 }
@@ -104,12 +119,24 @@ export interface KwilQueryGetDdlindexResponse {
   ddlindex?: KwilDdlindex;
 }
 
+export interface KwilQueryGetQueryidsResponse {
+  queryids?: KwilQueryids;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface KwilQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: KwilParams;
+}
+
+export interface KwilQueryids {
+  index?: string;
+  queryid?: string;
+  query?: string;
+  dbid?: string;
+  publicity?: string;
 }
 
 export interface ProtobufAny {
@@ -519,6 +546,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<KwilQueryParamsResponse, RpcStatus>({
       path: `/kwil/kwil/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQueryidsAll
+   * @summary Queries a list of Queryids items.
+   * @request GET:/kwil/kwil/queryids
+   */
+  queryQueryidsAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<KwilQueryAllQueryidsResponse, RpcStatus>({
+      path: `/kwil/kwil/queryids`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQueryids
+   * @summary Queries a Queryids by index.
+   * @request GET:/kwil/kwil/queryids/{index}
+   */
+  queryQueryids = (index: string, params: RequestParams = {}) =>
+    this.request<KwilQueryGetQueryidsResponse, RpcStatus>({
+      path: `/kwil/kwil/queryids/${index}`,
       method: "GET",
       format: "json",
       ...params,

@@ -6,6 +6,7 @@ import "kwil/params.proto";
 import "kwil/databases.proto";
 import "kwil/ddl.proto";
 import "kwil/ddlindex.proto";
+import "kwil/queryids.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "kwil/x/kwil/types";
@@ -16,5 +17,6 @@ message GenesisState {
   repeated Databases databasesList = 2 [(gogoproto.nullable) = false];
   repeated Ddl ddlList = 3 [(gogoproto.nullable) = false];
   repeated Ddlindex ddlindexList = 4 [(gogoproto.nullable) = false];
+  repeated Queryids queryidsList = 5 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }
