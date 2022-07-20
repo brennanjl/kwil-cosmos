@@ -36,7 +36,9 @@ export interface MsgDefineQuery {
   publicity: boolean;
 }
 
-export interface MsgDefineQueryResponse {}
+export interface MsgDefineQueryResponse {
+  id: string;
+}
 
 const baseMsgDatabaseWrite: object = {
   creator: "",
@@ -580,10 +582,16 @@ export const MsgDefineQuery = {
   },
 };
 
-const baseMsgDefineQueryResponse: object = {};
+const baseMsgDefineQueryResponse: object = { id: "" };
 
 export const MsgDefineQueryResponse = {
-  encode(_: MsgDefineQueryResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: MsgDefineQueryResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
+    }
     return writer;
   },
 
@@ -594,6 +602,9 @@ export const MsgDefineQueryResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -602,18 +613,31 @@ export const MsgDefineQueryResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgDefineQueryResponse {
+  fromJSON(object: any): MsgDefineQueryResponse {
     const message = { ...baseMsgDefineQueryResponse } as MsgDefineQueryResponse;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = String(object.id);
+    } else {
+      message.id = "";
+    }
     return message;
   },
 
-  toJSON(_: MsgDefineQueryResponse): unknown {
+  toJSON(message: MsgDefineQueryResponse): unknown {
     const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgDefineQueryResponse>): MsgDefineQueryResponse {
+  fromPartial(
+    object: DeepPartial<MsgDefineQueryResponse>
+  ): MsgDefineQueryResponse {
     const message = { ...baseMsgDefineQueryResponse } as MsgDefineQueryResponse;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = "";
+    }
     return message;
   },
 };

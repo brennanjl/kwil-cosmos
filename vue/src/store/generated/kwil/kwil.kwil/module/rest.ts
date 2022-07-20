@@ -40,7 +40,9 @@ export type KwilMsgDDLResponse = object;
 
 export type KwilMsgDatabaseWriteResponse = object;
 
-export type KwilMsgDefineQueryResponse = object;
+export interface KwilMsgDefineQueryResponse {
+  id?: string;
+}
 
 /**
  * Params defines the parameters for the module.

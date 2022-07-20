@@ -52278,6 +52278,9 @@ definitions:
     type: object
   kwil.kwil.MsgDefineQueryResponse:
     type: object
+    properties:
+      id:
+        type: string
   kwil.kwil.Params:
     type: object
     description: Params defines the parameters for the module.

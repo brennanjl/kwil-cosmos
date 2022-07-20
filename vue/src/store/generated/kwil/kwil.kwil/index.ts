@@ -391,21 +391,6 @@ export default {
 		},
 		
 		
-		async sendMsgDefineQuery({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDefineQuery(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDefineQuery:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgDatabaseWrite({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -418,21 +403,6 @@ export default {
 					throw new Error('TxClient:MsgDatabaseWrite:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgDatabaseWrite:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgDDL({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDDL(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDDL:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDDL:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -451,20 +421,37 @@ export default {
 				}
 			}
 		},
-		
-		async MsgDefineQuery({ rootGetters }, { value }) {
+		async sendMsgDDL({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDefineQuery(value)
-				return msg
+				const msg = await txClient.msgDDL(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgDefineQuery:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgDDL:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDDL:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
+		async sendMsgDefineQuery({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDefineQuery(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDefineQuery:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		
 		async MsgDatabaseWrite({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -475,6 +462,19 @@ export default {
 					throw new Error('TxClient:MsgDatabaseWrite:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgDatabaseWrite:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCreateDatabase({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateDatabase(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCreateDatabase:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -491,16 +491,16 @@ export default {
 				}
 			}
 		},
-		async MsgCreateDatabase({ rootGetters }, { value }) {
+		async MsgDefineQuery({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateDatabase(value)
+				const msg = await txClient.msgDefineQuery(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateDatabase:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgDefineQuery:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCreateDatabase:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgDefineQuery:Create Could not create message: ' + e.message)
 				}
 			}
 		},

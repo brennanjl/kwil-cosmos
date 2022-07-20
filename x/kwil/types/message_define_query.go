@@ -9,9 +9,10 @@ const TypeMsgDefineQuery = "define_query"
 
 var _ sdk.Msg = &MsgDefineQuery{}
 
-func NewMsgDefineQuery(creator string, parQuer string, publicity bool) *MsgDefineQuery {
+func NewMsgDefineQuery(creator string, dbId string, parQuer string, publicity bool) *MsgDefineQuery {
 	return &MsgDefineQuery{
 		Creator:   creator,
+		DbId:      dbId,
 		ParQuer:   parQuer,
 		Publicity: publicity,
 	}

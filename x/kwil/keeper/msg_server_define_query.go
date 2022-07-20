@@ -53,5 +53,5 @@ func (k msgServer) DefineQuery(goCtx context.Context, msg *types.MsgDefineQuery)
 	// Store it
 	k.SetQueryids(ctx, newParQuer)
 
-	return &types.MsgDefineQueryResponse{}, nil
+	return &types.MsgDefineQueryResponse{Id: queryID}, nil
 }
