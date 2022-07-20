@@ -18,10 +18,11 @@ func CmdDefineQuery() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "define-query [par-quer] [publicity]",
 		Short: "Broadcast message DefineQuery",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argParQuer := args[0]
-			argPublicity, err := cast.ToBoolE(args[1])
+			argDbid := args[0]
+			argParQuer := args[1]
+			argPublicity, err := cast.ToBoolE(args[2])
 			if err != nil {
 				return err
 			}
@@ -33,6 +34,7 @@ func CmdDefineQuery() *cobra.Command {
 
 			msg := types.NewMsgDefineQuery(
 				clientCtx.GetFromAddress().String(),
+				argDbid,
 				argParQuer,
 				argPublicity,
 			)
