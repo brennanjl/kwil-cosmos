@@ -26,15 +26,19 @@ func (k msgServer) DefineQuery(goCtx context.Context, msg *types.MsgDefineQuery)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Caller is not the owner of this DB")
 	}
 
+	// Adding the publicity to the ParQuer to ensure that they give different query indices
+	var QueryToBeHashed strings.Builder
+	QueryToBeHashed.WriteString(msg.ParQuer)
+	QueryToBeHashed.WriteString(strconv.FormatBool(msg.Publicity))
+
 	// Create the queryid
-	queryIDBytes := sha256.Sum256([]byte(msg.ParQuer))
+	queryIDBytes := sha256.Sum256([]byte(QueryToBeHashed.String()))
 	queryID := hex.EncodeToString(queryIDBytes[:])
 
 	// Create the index which is the dbid, queryid, and publicity concatenated
 	var sb strings.Builder
 	sb.WriteString(msg.DbId)
 	sb.WriteString(queryID)
-	sb.WriteString(strconv.FormatBool(msg.Publicity))
 
 	// Now check the KV to ensure this db id does not exist
 	_, isFound = k.GetQueryids(ctx, sb.String())

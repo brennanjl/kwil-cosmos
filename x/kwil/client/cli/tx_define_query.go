@@ -16,7 +16,7 @@ var _ = strconv.Itoa(0)
 
 func CmdDefineQuery() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "define-query [par-quer] [publicity]",
+		Use:   "define-query [db-id] [par-quer] [publicity]",
 		Short: "Broadcast message DefineQuery",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
